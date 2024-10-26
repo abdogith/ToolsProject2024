@@ -1,18 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
-	"package_tracking_backend/handlers"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+
+	controller "go-user-auth/controller"
 )
 
 func main() {
-	ConnectDB()
-	r := mux.NewRouter()
-	r.HandleFunc("/api/users/register", handlers.RegisterUser).Methods("POST")
-	r.HandleFunc("/api/users/login", handlers.LoginUser).Methods("POST")
-	log.Println("Server running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	router := mux.NewRouter()
+	router.HandleFunc("/register", controller.RegisterUser).Methods("POST")
+	router.HandleFunc("/getUser", controller.AllUser).Methods("GET")
+	router.HandleFunc("/insertUser", controller.InsertAccount).Methods("POST")
+	router.HandleFunc("/loginUser", controller.Login).Methods("POST")
+	http.Handle("/", router)
+	fmt.Println("Connected to port 3000")
+	log.Fatal(http.ListenAndServe(":3000", router))
 }

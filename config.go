@@ -1,26 +1,22 @@
-package main
+package config
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
-	"os"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
-var DB *sql.DB
+func Connect() *sql.DB {
+	dbDriver := "mysql"
+	dbUser := "root"
+	dbPass := "12345678@A"
+	dbName := "userdb"
 
-func ConnectDB() {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s",
-		os.Getenv("root"), os.Getenv("abdomysql2001"), os.Getenv("localhost"), os.Getenv("abdulrahman"))
-	database, err := sql.Open("mysql", dsn)
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
-		log.Fatal("Could not connect to database: ", err)
+		log.Fatal("Failed to connect to database:", err)
 	}
-	if err := database.Ping(); err != nil {
-		log.Fatal("Could not ping database: ", err)
+	if err = db.Ping(); err != nil {
+		log.Fatal("Database is unreachable:", err)
 	}
-	DB = database
-	log.Println("Database connected successfully!")
+	return db
 }

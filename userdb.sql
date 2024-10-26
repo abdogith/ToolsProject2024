@@ -1,11 +1,15 @@
-create database userdb;
-use userdb;
+CREATE DATABASE userdb;
+
+USE userdb;
 
 CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    phone VARCHAR(20),
-    password VARCHAR(255),
-    role ENUM('admin', 'courier', 'user') DEFAULT 'user'
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
