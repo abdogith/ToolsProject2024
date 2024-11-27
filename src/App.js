@@ -6,6 +6,9 @@ import CreateOrder from './components/CreateOrder';
 import MyOrders from './components/MyOrders';
 import OrderDetails from './components/OrderDetails';
 import AssignedOrders from './components/AssignedOrders';
+import CourierAssignedOrders from './components/CourierAssignedOrders';
+import ManageOrders from './components/ManageOrders';
+import UpdateOrderStatus from './components/UpdateOrderStatus';
 
 
 function App() {
@@ -24,6 +27,9 @@ function App() {
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/order-details/:orderId" element={<OrderDetails />} />
           <Route path="/assigned-orders" element={<AssignedOrders />} />
+          <Route path="/CourierAssignedOrders" element={<CourierAssignedOrders />} />
+          <Route path="/ManageOrders" element={<ManageOrders />} />
+          <Route path="/UpdateOrderStatus" element={<UpdateOrderStatus />} />
        
         </Routes>
       </div>
