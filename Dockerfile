@@ -1,21 +1,8 @@
-FROM golang:1.21 AS builder
 
-WORKDIR /app
 
-COPY go.mod go.sum ./
+FROM mysql:8.0
 
-RUN go mod download
+ENV MYSQL_ROOT_PASSWORD=abdomysql2001
+ENV MYSQL_DATABASE=userdb
 
-COPY . .
-
-RUN go build -o main .
-
-FROM debian:bookworm-slim
-
-WORKDIR /app
-
-COPY --from=builder /app/main .
-
-EXPOSE 8080
-
-CMD ["./main"]
+COPY userdb.sql /docker-entrypoint-initdb.d/
